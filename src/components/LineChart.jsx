@@ -36,6 +36,10 @@ const LineChart = ({ labels, datasets }) => {
         title: {
           display: true,
           text: "Period",
+          font: {
+            size: 20,
+          },
+          color: "#cbd5e1",
         },
       },
       y: {
@@ -55,6 +59,15 @@ const LineChart = ({ labels, datasets }) => {
           font: {
             size: 20,
           },
+          color: "#cbd5e1",
+        },
+      },
+    },
+    tooltips: {
+      mode: "label",
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return data["datasets"][0]["data"][tooltipItem["index"]] + "%";
         },
       },
     },

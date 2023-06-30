@@ -118,7 +118,7 @@ const OverviewScreen = () => {
             </button>
           ))}
         </div>
-        <div className="flex w-full mt-2">
+        <div className="flex w-full justify-center mt-2">
           <InformationList data={data} width="w-1/4" />
           <LineChart labels={chartLabels} datasets={chartDatasets} />
         </div>
