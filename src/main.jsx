@@ -16,7 +16,7 @@ import SiteCompareScreen from "./screens/SiteCompareScreen.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="overview" element={<OverviewScreen />} />
+      <Route path="" element={<OverviewScreen />} />
       <Route path="region" element={<RegionOverviewScreen />} />
       <Route path="site" element={<SiteScreen />} />
       <Route path="siteCompare" element={<SiteCompareScreen />} />
