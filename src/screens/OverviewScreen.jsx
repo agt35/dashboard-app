@@ -4,6 +4,7 @@ import { getLabels, getDatasets } from "../data/utils";
 import InformationList from "../components/InformationList";
 import { useEffect, useState } from "react";
 import LineChart from "../components/LineChart";
+import ButtonGroup from "../components/ButtonGroup";
 
 const buttons = [
   {
@@ -29,6 +30,10 @@ const OverviewScreen = () => {
   const [data, setData] = useState();
   const [chartLabels, setChartLabels] = useState();
   const [chartDatasets, setChartDatasets] = useState();
+
+  const onButtonGroupSelect = (button) => {
+    setSelected(button.selects);
+  };
 
   useEffect(() => {
     fetchTableData();
@@ -110,21 +115,7 @@ const OverviewScreen = () => {
         />
       </div>
       <div className="mt-2 w-full px-5 flex flex-col items-center">
-        <div className="flex">
-          {buttons.map((button) => (
-            <button
-              className={`text-xl text-slate-200 border p-2 w-48 first:rounded-l-lg last:rounded-r-lg hover:bg-blue-800/25 transition-all duration-200 active:bg-blue-950 ${
-                selected === button.selects
-                  ? "border-blue-400"
-                  : "border-blue-900"
-              }`}
-              key={button.id}
-              onClick={() => setSelected(button.selects)}
-            >
-              {button.name}
-            </button>
-          ))}
-        </div>
+        <ButtonGroup buttonList={buttons} onSelect={onButtonGroupSelect} />
         <div className="flex w-full justify-center mt-2">
           <InformationList data={data} width="w-1/4" />
           <LineChart labels={chartLabels} datasets={chartDatasets} />
