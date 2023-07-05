@@ -1,17 +1,6 @@
 import InformationCard from "../components/InformationCard";
-import {
-  regionalDiffToTarget,
-  metricGroupDiffToTarget,
-  siteDiffToTarget,
-  metricNameDiffToTarget,
-} from "../data/data";
+import axios from "axios";
 import { getLabels, getDatasets } from "../data/utils";
-import {
-  chartDataRegion,
-  chartDataMetricGroup,
-  chartDataMetricName,
-  chartDataSite,
-} from "../data/data";
 import InformationList from "../components/InformationList";
 import { useEffect, useState } from "react";
 import LineChart from "../components/LineChart";
@@ -25,82 +14,100 @@ const buttons = [
   {
     id: 2,
     name: "Metric Groups",
-    selects: "metricGroup",
+    selects: "group",
   },
   {
     id: 3,
     name: "Metrics",
     selects: "metric",
   },
-  {
-    id: 4,
-    name: "Sites",
-    selects: "site",
-  },
 ];
 
 const OverviewScreen = () => {
-  const bestRegion = regionalDiffToTarget.reduce((prev, curr) =>
-    prev.difference > curr.difference ? prev : curr
-  );
-  const worstRegion = regionalDiffToTarget.reduce((prev, curr) =>
-    prev.difference < curr.difference ? prev : curr
-  );
-  const bestMetricGroup = metricGroupDiffToTarget.reduce((prev, curr) =>
-    prev.difference > curr.difference ? prev : curr
-  );
-  const worstMetricGroup = metricGroupDiffToTarget.reduce((prev, curr) =>
-    prev.difference < curr.difference ? prev : curr
-  );
-
+  const [cardData, setCardData] = useState({});
   const [selected, setSelected] = useState("region");
-  const [data, setData] = useState(regionalDiffToTarget);
-  const [chartLabels, setChartLabels] = useState(getLabels(chartDataRegion));
-  const [chartDatasets, setChartDatasets] = useState(
-    getDatasets(chartDataRegion)
-  );
+  const [data, setData] = useState();
+  const [chartLabels, setChartLabels] = useState();
+  const [chartDatasets, setChartDatasets] = useState();
 
   useEffect(() => {
-    switch (selected) {
-      case "region":
-        setData(regionalDiffToTarget);
-        setChartLabels(getLabels(chartDataRegion));
-        setChartDatasets(getDatasets(chartDataRegion));
-        break;
-      case "metricGroup":
-        setData(metricGroupDiffToTarget);
-        setChartLabels(getLabels(chartDataMetricGroup));
-        setChartDatasets(getDatasets(chartDataMetricGroup));
-        break;
-      case "metric":
-        setData(metricNameDiffToTarget);
-        setChartLabels(getLabels(chartDataMetricName));
-        setChartDatasets(getDatasets(chartDataMetricName));
-        break;
-      case "site":
-        setData(siteDiffToTarget);
-        setChartLabels(getLabels(chartDataSite));
-        setChartDatasets(getDatasets(chartDataSite));
-        break;
-      default:
-        setData(regionalDiffToTarget);
-        setChartLabels(getLabels(chartDataRegion));
-        setChartDatasets(getDatasets(chartDataRegion));
-    }
+    fetchTableData();
+    fetchCardsData();
+    fetchChartData();
   }, [selected]);
 
+  const fetchTableData = async () => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/summary_${selected}/`
+      );
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchChartData = async () => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/data_${selected}/`
+      );
+      console.log(getDatasets(response.data));
+      setChartLabels(getLabels(response.data));
+      setChartDatasets(getDatasets(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchCardsData = async () => {
+    try {
+      const regionResponse = await axios.get(
+        `http://127.0.0.1:8000/summary_region/`
+      );
+      console.log(regionResponse);
+      const metricResponse = await axios.get(
+        `http://127.0.0.1:8000/summary_group/`
+      );
+      console.log(metricResponse);
+      const bestRegion = regionResponse.data.reduce((prev, curr) =>
+        prev.value > curr.value ? prev : curr
+      );
+      const worstRegion = regionResponse.data.reduce((prev, curr) =>
+        prev.value < curr.value ? prev : curr
+      );
+      const bestMetricGroup = metricResponse.data.reduce((prev, curr) =>
+        prev.value > curr.value ? prev : curr
+      );
+      const worstMetricGroup = metricResponse.data.reduce((prev, curr) =>
+        prev.value < curr.value ? prev : curr
+      );
+      setCardData({
+        bestRegion,
+        worstRegion,
+        bestMetricGroup,
+        worstMetricGroup,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="font-roboto flex flex-col justify-center items-center mt-2">
-      <h2 className="text-6xl text-slate-100">Overview</h2>
+    <div className="font-roboto flex flex-col justify-start items-center h-screen overflow-scroll no-scrollbar">
+      <h2 className="text-6xl text-slate-100 sticky mt-2">Overview</h2>
       <div className="grid grid-cols-2 md:flex w-full justify-around mt-3">
-        <InformationCard title="Best Region" data={bestRegion} best />
-        <InformationCard title="Worst Region" data={worstRegion} />
+        <InformationCard title="Best Region" data={cardData.bestRegion} best />
+        <InformationCard title="Worst Region" data={cardData.worstRegion} />
         <InformationCard
           title="Best Metric Group"
-          data={bestMetricGroup}
+          data={cardData.bestMetricGroup}
           best
         />
-        <InformationCard title="Worst Metric Group" data={worstMetricGroup} />
+        <InformationCard
+          title="Worst Metric Group"
+          data={cardData.worstMetricGroup}
+        />
       </div>
       <div className="mt-2 w-full px-5 flex flex-col items-center">
         <div className="flex">

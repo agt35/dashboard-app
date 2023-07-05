@@ -1,3 +1,9 @@
+export const regions = [
+  { id: 1, name: "Northcentral" },
+  { id: 2, name: "South" },
+  { id: 3, name: "West" },
+];
+
 export const regionalDiffToTarget = [
   { Name: "South", difference: -0.0255 },
   { Name: "West", difference: -0.0371 },

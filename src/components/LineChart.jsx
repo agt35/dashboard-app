@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Chart as ChartJS,
   LineElement,
@@ -10,6 +11,7 @@ import {
 import { PropTypes } from "prop-types";
 import { Line } from "react-chartjs-2";
 import Container from "./Container";
+import CircularProgress from "@mui/material/CircularProgress";
 
 ChartJS.register(
   LineElement,
@@ -30,6 +32,10 @@ const LineChart = ({ labels, datasets }) => {
     responsive: true,
     scales: {
       x: {
+        grid: {
+          drawBorder: true,
+          color: "#6b7280",
+        },
         ticks: {
           color: "#cbd5e1",
         },
@@ -44,12 +50,13 @@ const LineChart = ({ labels, datasets }) => {
       },
       y: {
         grid: {
-          drawBorder: false,
+          drawBorder: true,
+          color: "#6b7280",
         },
         ticks: {
           color: "#cbd5e1",
           //Include percentage sign
-          callback: function (value, index, values) {
+          callback: function (value) {
             return value + "%";
           },
         },
@@ -63,11 +70,12 @@ const LineChart = ({ labels, datasets }) => {
         },
       },
     },
-    tooltips: {
-      mode: "label",
-      callbacks: {
-        label: function (tooltipItem, data) {
-          return data["datasets"][0]["data"][tooltipItem["index"]] + "%";
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (label) => {
+            return `${label.raw}%`;
+          },
         },
       },
     },
@@ -75,14 +83,20 @@ const LineChart = ({ labels, datasets }) => {
 
   return (
     <Container width="w-2/3">
-      <Line data={data} options={options} />
+      {datasets ? (
+        <Line data={data} options={options} />
+      ) : (
+        <div>
+          <CircularProgress />
+        </div>
+      )}
     </Container>
   );
 };
 
 LineChart.propTypesropTypes = {
-  labels: PropTypes.array.isRequired,
-  datasets: PropTypes.array.isRequired,
+  labels: PropTypes.array,
+  datasets: PropTypes.array,
 };
 
 export default LineChart;
