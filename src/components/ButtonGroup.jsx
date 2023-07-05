@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { PropTypes } from "prop-types";
 
 const ButtonGroup = ({ buttonList, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState(buttonList[0]);
@@ -25,5 +26,10 @@ const ButtonGroup = ({ buttonList, onSelect }) => {
       ))}
     </div>
   );
+};
+
+ButtonGroup.propTypes = {
+  buttonList: PropTypes.array,
+  onSelect: PropTypes.func,
 };
 export default ButtonGroup;
