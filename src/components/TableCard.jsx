@@ -17,7 +17,7 @@ const TableCard = ({ title, data, onSelectChartData }) => {
 
   return (
     <Container width="w-1/3">
-      <div className="w-full h-[85%]">
+      <div className="w-full h-[85%] overflow-y-scroll no-scrollbar">
         <div className="w-full border-b-2 mb-2 font-roboto flex justify-center">
           <h3 className="text-4xl text-slate-300 font-bold text-center pb-2">
             {title}

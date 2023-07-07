@@ -12,6 +12,7 @@ const RegionOverviewScreen = () => {
   const [selectedRegion, setSelectedRegion] = useState("Atlantic");
   const [data, setData] = useState();
   const [chartData, setChartData] = useState();
+  const [selectedGroup, setSelectedGroup] = useState("");
 
   const fetchRegionList = async () => {
     try {
@@ -56,7 +57,7 @@ const RegionOverviewScreen = () => {
   };
 
   const handleChartDataSelection = (metricGroup) => {
-    console.log(metricGroup);
+    setSelectedGroup(metricGroup);
     const inputData = data.filter((item) => item.label === metricGroup)[0].data;
     const labels = getLabels(inputData);
     const datasets = getDatasetsRegionOverview(inputData);
@@ -72,7 +73,7 @@ const RegionOverviewScreen = () => {
   }, [selectedRegion]);
 
   return (
-    <div className="font-roboto flex flex-col justify-start items-center h-screen overflow-scroll no-scrollbar">
+    <div className="font-roboto flex flex-col justify-start items-center mx-2 h-screen overflow-scroll no-scrollbar">
       <h2 className="text-6xl text-slate-100 mt-2">Region</h2>
       <div className="flex my-3">
         {buttons ? (
@@ -82,7 +83,7 @@ const RegionOverviewScreen = () => {
         )}
       </div>
       <div className="w-full px-2 flex-grow">
-        <div className="flex h-1/2">
+        <div className="flex h-2/5">
           {data ? (
             data.map((item) => (
               <TableCard
@@ -96,18 +97,21 @@ const RegionOverviewScreen = () => {
             <CircularProgress />
           )}
         </div>
-        <div className="w-full flex justify-center h-1/2">
+        <div className="w-full flex justify-center h-3/5">
           {chartData ? (
             <LineChart
               datasets={chartData.datasets}
               labels={chartData.labels}
               width={"w-full"}
+              title={selectedGroup}
             />
           ) : (
-            <Container>
-              <h2 className="text-4xl text-slate-100 mt-2">
-                Select a Metric Group to view it in chart
-              </h2>
+            <Container width="w-full">
+              <div className="flex items-center justify-center w-full h-full">
+                <h2 className="text-4xl text-slate-100">
+                  Select a Metric Group to view it in chart
+                </h2>
+              </div>
             </Container>
           )}
         </div>

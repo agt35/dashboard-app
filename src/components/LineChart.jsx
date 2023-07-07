@@ -7,6 +7,7 @@ import {
   PointElement,
   Legend,
   Tooltip,
+  Title,
 } from "chart.js";
 import { PropTypes } from "prop-types";
 import { Line } from "react-chartjs-2";
@@ -19,10 +20,11 @@ ChartJS.register(
   LinearScale,
   PointElement,
   Legend,
-  Tooltip
+  Tooltip,
+  Title
 );
 
-const LineChart = ({ labels, datasets, width, height }) => {
+const LineChart = ({ labels, title, datasets, width, height }) => {
   const data = {
     labels: labels,
     datasets: datasets,
@@ -77,6 +79,14 @@ const LineChart = ({ labels, datasets, width, height }) => {
             return `${label.raw}%`;
           },
         },
+      },
+      title: {
+        display: title ? true : false,
+        text: title ? title : "",
+        font: {
+          size: 30,
+        },
+        color: "#cbd5e1",
       },
     },
   };
