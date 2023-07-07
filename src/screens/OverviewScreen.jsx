@@ -36,8 +36,11 @@ const OverviewScreen = () => {
   };
 
   useEffect(() => {
-    fetchTableData();
     fetchCardsData();
+  }, []);
+
+  useEffect(() => {
+    fetchTableData();
     fetchChartData();
   }, [selected]);
 
@@ -55,9 +58,8 @@ const OverviewScreen = () => {
   const fetchChartData = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/data_${selected}/`
+        `http://127.0.0.1:8000/data_difference_${selected}/`
       );
-      console.log(getDatasets(response.data));
       setChartLabels(getLabels(response.data));
       setChartDatasets(getDatasets(response.data));
     } catch (error) {
@@ -70,11 +72,9 @@ const OverviewScreen = () => {
       const regionResponse = await axios.get(
         `http://127.0.0.1:8000/summary_region/`
       );
-      console.log(regionResponse);
       const metricResponse = await axios.get(
         `http://127.0.0.1:8000/summary_group/`
       );
-      console.log(metricResponse);
       const bestRegion = regionResponse.data.reduce((prev, curr) =>
         prev.value > curr.value ? prev : curr
       );
@@ -118,7 +118,11 @@ const OverviewScreen = () => {
         <ButtonGroup buttonList={buttons} onSelect={onButtonGroupSelect} />
         <div className="flex w-full justify-center mt-2">
           <InformationList data={data} width="w-1/4" />
-          <LineChart labels={chartLabels} datasets={chartDatasets} />
+          <LineChart
+            labels={chartLabels}
+            datasets={chartDatasets}
+            width={"w-2/3"}
+          />
         </div>
       </div>
     </div>

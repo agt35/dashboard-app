@@ -22,7 +22,7 @@ ChartJS.register(
   Tooltip
 );
 
-const LineChart = ({ labels, datasets }) => {
+const LineChart = ({ labels, datasets, width, height }) => {
   const data = {
     labels: labels,
     datasets: datasets,
@@ -82,7 +82,7 @@ const LineChart = ({ labels, datasets }) => {
   };
 
   return (
-    <Container width="w-2/3">
+    <Container width={width} height={height}>
       {datasets ? (
         <Line data={data} options={options} />
       ) : (
