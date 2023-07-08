@@ -40,7 +40,7 @@ const Dropdown = ({ dropdownId, placeholder, items, classes, onSelect }) => {
         <div className="absolute flex flex-col">
           {selected && (
             <button
-              className="text-xl text-slate-300 border px-4 py-2 w-64 flex justify-between first:rounded-t-md last:rounded-b-md hover:bg-blue-950 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 border-blue-900"
+              className="text-xl text-slate-300 border px-4 py-2 w-64 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 border-blue-900"
               onClick={() => clearSelection()}
             >
               Clear selection
