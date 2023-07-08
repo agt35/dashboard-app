@@ -93,13 +93,15 @@ const LineChart = ({ labels, title, datasets, width, height }) => {
 
   return (
     <Container width={width} height={height}>
-      {datasets ? (
-        <Line data={data} options={options} />
-      ) : (
-        <div>
-          <CircularProgress />
-        </div>
-      )}
+      <div className="flex justify-center h-full">
+        {datasets ? (
+          <Line data={data} options={options} />
+        ) : (
+          <div>
+            <CircularProgress />
+          </div>
+        )}
+      </div>
     </Container>
   );
 };

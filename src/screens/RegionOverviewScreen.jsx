@@ -73,7 +73,7 @@ const RegionOverviewScreen = () => {
   }, [selectedRegion]);
 
   return (
-    <div className="font-roboto flex flex-col justify-start items-center mx-2 h-screen overflow-scroll no-scrollbar">
+    <div className="font-roboto flex flex-col justify-start items-center h-screen overflow-scroll no-scrollbar">
       <h2 className="text-6xl text-slate-100 mt-2">Region</h2>
       <div className="flex my-3">
         {buttons ? (

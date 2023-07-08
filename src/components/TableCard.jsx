@@ -62,12 +62,14 @@ const TableCard = ({ title, data, onSelectChartData }) => {
           </table>
         </div>
       </div>
-      <button
-        className="text-slate-200 p-2 rounded-lg shadow-md bg-blue-600 hover:bg-blue-900/50 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 text-lg ml-4 mb-2 bg-transparent border-2 border-blue-800 focus:outline-none"
-        onClick={() => onSelectChartData(title)}
-      >
-        View in chart
-      </button>
+      <div className="flex justify-center">
+        <button
+          className="text-slate-200 p-2 rounded-lg shadow-md bg-blue-600 hover:bg-blue-900/50 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 text-lg ml-4 mb-2 bg-transparent border-2 border-blue-800 focus:outline-none"
+          onClick={() => onSelectChartData(title)}
+        >
+          View in chart
+        </button>
+      </div>
     </Container>
   );
 };
