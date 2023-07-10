@@ -46,7 +46,7 @@ const SiteInfoSection = ({ data, periods }) => {
   return (
     <div className="flex h-1/2">
       <Container width="w-1/4" height="h-11/12">
-        <div className="">
+        <div className="mb-2">
           <h2 className="text-4xl text-slate-300">{data.label}</h2>
           <h3 className="text-slate-400">Select one or more metrics below:</h3>
         </div>
@@ -65,7 +65,7 @@ const SiteInfoSection = ({ data, periods }) => {
             </button>
           ))}
         </div>
-        <div className="flex justify-around">
+        <div className="flex justify-around items-center">
           <h3 className="text-slate-400">Select chart or table view:</h3>
           <button
             className={`mx-2 text-slate-300 border p-2 flex justify-center items-center rounded-md transition-all duration-200 hover:bg-blue-600/50 active:bg-blue-950 ${

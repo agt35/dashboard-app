@@ -70,7 +70,7 @@ const SiteScreen = () => {
   };
 
   return (
-    <div className="font-roboto flex flex-col justify-start items-center h-screen overflow-scroll no-scrollbar">
+    <div className="font-roboto flex flex-col justify-start items-center h-screen mx-2 overflow-scroll no-scrollbar">
       <h2 className="text-6xl text-slate-100 mb-4 mt-2">Site Deep Dive</h2>
       <div className="flex mb-2">
         <Dropdown
