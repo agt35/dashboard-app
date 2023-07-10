@@ -26,7 +26,7 @@ const Dropdown = ({ dropdownId, placeholder, items, classes, onSelect }) => {
   return (
     <div className={`${classes} relative`}>
       <button
-        className="text-xl text-slate-300 border px-4 py-2 w-64 flex justify-between rounded-md hover:bg-blue-950 transition-all duration-200 active:bg-blue-950 border-blue-900 hover:border-blue-400"
+        className="text-xl text-slate-300 border px-4 py-2 w-64 mb-1 flex justify-between rounded-md hover:bg-blue-950 transition-all duration-200 active:bg-blue-950 border-blue-900 hover:border-blue-400"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {selected ? selected : placeholder}{" "}
@@ -40,7 +40,7 @@ const Dropdown = ({ dropdownId, placeholder, items, classes, onSelect }) => {
         <div className="absolute flex flex-col">
           {selected && (
             <button
-              className="text-xl text-slate-300 border px-4 py-2 w-64 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 border-blue-900"
+              className="text-xl z-10 text-slate-300 border px-4 py-2 w-64 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 border-blue-900"
               onClick={() => clearSelection()}
             >
               Clear selection
@@ -50,7 +50,7 @@ const Dropdown = ({ dropdownId, placeholder, items, classes, onSelect }) => {
           {items.map((item, index) => (
             <button
               key={index}
-              className="text-xl text-slate-300 border px-4 py-2 w-64 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 transition-all duration-200 active:bg-blue-950 border-blue-900 hover:border-blue-400"
+              className="text-xl z-10 text-slate-300 border px-4 py-2 w-64 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 transition-all duration-200 active:bg-blue-950 border-blue-900 hover:border-blue-400"
               onClick={() => makeSelection(item)}
             >
               {item}
