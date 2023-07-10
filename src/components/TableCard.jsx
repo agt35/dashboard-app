@@ -17,7 +17,7 @@ const TableCard = ({ title, data, onSelectChartData }) => {
 
   return (
     <Container width="w-1/3">
-      <div className="w-full h-[85%] overflow-y-scroll no-scrollbar">
+      <div className="overflow-y-scroll no-scrollbar">
         <div className="w-full border-b-2 mb-2 font-roboto flex justify-center">
           <h3 className="text-4xl text-slate-300 font-bold text-center pb-2">
             {title}
@@ -62,9 +62,9 @@ const TableCard = ({ title, data, onSelectChartData }) => {
           </table>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-10">
         <button
-          className="text-slate-200 p-2 rounded-lg shadow-md bg-blue-600 hover:bg-blue-900/50 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 text-lg ml-4 mb-2 bg-transparent border-2 border-blue-800 focus:outline-none"
+          className="text-slate-300 p-2 rounded-md bg-blue-600 hover:bg-blue-900/50 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 text-lg ml-4 mb-2 bg-transparent border-2 border-blue-800 focus:outline-none"
           onClick={() => onSelectChartData(title)}
         >
           View in chart
