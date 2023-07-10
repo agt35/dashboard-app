@@ -5,6 +5,7 @@ import InformationList from "../components/InformationList";
 import { useEffect, useState } from "react";
 import LineChart from "../components/LineChart";
 import ButtonGroup from "../components/ButtonGroup";
+import Container from "../components/Container";
 
 const buttons = [
   {
@@ -118,11 +119,9 @@ const OverviewScreen = () => {
         <ButtonGroup buttonList={buttons} onSelect={onButtonGroupSelect} />
         <div className="flex w-full justify-center mt-2">
           <InformationList data={data} width="w-1/4" />
-          <LineChart
-            labels={chartLabels}
-            datasets={chartDatasets}
-            width={"w-2/3"}
-          />
+          <Container width="w-2/3">
+            <LineChart labels={chartLabels} datasets={chartDatasets} />
+          </Container>
         </div>
       </div>
     </div>

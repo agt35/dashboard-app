@@ -11,7 +11,6 @@ import {
 } from "chart.js";
 import { PropTypes } from "prop-types";
 import { Line } from "react-chartjs-2";
-import Container from "./Container";
 import CircularProgress from "@mui/material/CircularProgress";
 
 ChartJS.register(
@@ -24,7 +23,7 @@ ChartJS.register(
   Title
 );
 
-const LineChart = ({ labels, title, datasets, width, height }) => {
+const LineChart = ({ labels, title, datasets }) => {
   const data = {
     labels: labels,
     datasets: datasets,
@@ -92,17 +91,15 @@ const LineChart = ({ labels, title, datasets, width, height }) => {
   };
 
   return (
-    <Container width={width} height={height}>
-      <div className="flex justify-center h-full">
-        {datasets ? (
-          <Line data={data} options={options} />
-        ) : (
-          <div>
-            <CircularProgress />
-          </div>
-        )}
-      </div>
-    </Container>
+    <div className="flex justify-center h-full">
+      {datasets ? (
+        <Line data={data} options={options} />
+      ) : (
+        <div>
+          <CircularProgress />
+        </div>
+      )}
+    </div>
   );
 };
 

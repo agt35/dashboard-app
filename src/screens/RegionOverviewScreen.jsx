@@ -99,12 +99,14 @@ const RegionOverviewScreen = () => {
         </div>
         <div className="w-full flex justify-center h-3/5">
           {chartData ? (
-            <LineChart
-              datasets={chartData.datasets}
-              labels={chartData.labels}
-              width={"w-full"}
-              title={selectedGroup}
-            />
+            <Container width="w-full">
+              <LineChart
+                datasets={chartData.datasets}
+                labels={chartData.labels}
+                width={"w-full"}
+                title={selectedGroup}
+              />
+            </Container>
           ) : (
             <Container width="w-full">
               <div className="flex items-center justify-center w-full h-full">
