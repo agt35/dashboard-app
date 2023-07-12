@@ -1,15 +1,15 @@
-// import axios from "axios";
+import axios from "axios";
 
-// const getData = async () => {
-//   try {
-//     const response = await axios.get(
-//       "http://127.0.0.1:8000/data_entries/Boston"
-//     );
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+const getData = async () => {
+  try {
+    const response = await axios.get(
+      "http://127.0.0.1:8000/data_entries/Boston/Line Efficiency"
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const getLabels = (data) => {
   const periods = [...new Set(data.map((item) => item.period))];
@@ -177,12 +177,52 @@ export const getDatasetsSite = (data) => {
       datasets: groupDataset,
     });
   });
-  console.log(datasets);
   return {
     periods: getLabels(data),
     datasets: datasets,
   };
 };
 
-// const data = await getData();
-// const datasets = getDatasetsSite(data);
+export const getDatasetsCompare = (data) => {
+  const actualColor = "#e5e5e5";
+  const targetColor = "#99f6e4";
+  const datasets = [];
+  const metric = data[0].metric_name;
+  const actualsDataset = {
+    label: `${metric} Actual`,
+    data: data.map((item) => (item.value * 100).toFixed(2)),
+    backgroundColor: actualColor,
+    borderColor: actualColor,
+    pointStyle: "rectRounded",
+    segment: {
+      borderColor: actualColor,
+      borderWidth: 2.5,
+    },
+    pointRadius: 5,
+    borderWidth: 1,
+  };
+  const targetsDataset = {
+    label: `${metric} Target`,
+    data: data.map((item) => (item.target * 100).toFixed(2)),
+    backgroundColor: targetColor,
+    borderColor: targetColor,
+    pointStyle: "rectRounded",
+    segment: {
+      borderColor: targetColor,
+      borderWidth: 2.5,
+    },
+    pointRadius: 5,
+    borderWidth: 1,
+  };
+  datasets.push(actualsDataset);
+  datasets.push(targetsDataset);
+  const periods = getLabels(data);
+  return {
+    labels: periods,
+    datasets: datasets,
+  };
+};
+
+const data = await getData();
+const datasets = getDatasetsCompare(data);
+console.log(datasets);
