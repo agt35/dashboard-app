@@ -29,7 +29,6 @@ const SiteScreen = () => {
     const { data } = await axios.get(
       `http://localhost:8000/data_entries/${site}`
     );
-    console.log(getDatasetsSite(data));
     setSiteData(getDatasetsSite(data));
   };
 
@@ -78,6 +77,7 @@ const SiteScreen = () => {
           dropdownId="region"
           items={regions}
           classes="mx-12"
+          buttonClasses="w-72"
           onSelect={handleDropDownSelect}
         />
         <Dropdown
@@ -87,6 +87,7 @@ const SiteScreen = () => {
           dropdownId="site"
           items={sites}
           classes="mx-12"
+          buttonClasses="w-72"
           onSelect={handleDropDownSelect}
         />
       </div>

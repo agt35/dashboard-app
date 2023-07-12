@@ -3,7 +3,14 @@ import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 
-const Dropdown = ({ dropdownId, placeholder, items, classes, onSelect }) => {
+const Dropdown = ({
+  dropdownId,
+  placeholder,
+  items,
+  classes,
+  buttonClasses,
+  onSelect,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("");
 
@@ -26,7 +33,7 @@ const Dropdown = ({ dropdownId, placeholder, items, classes, onSelect }) => {
   return (
     <div className={`${classes} relative`}>
       <button
-        className="text-xl text-slate-300 border px-4 py-2 w-64 mb-1 flex justify-between rounded-md hover:bg-blue-950 transition-all duration-200 active:bg-blue-950 border-blue-900 hover:border-blue-400"
+        className={`text-xl text-start text-slate-300 border px-4 py-2 whitespace-nowrap mb-1 flex justify-between rounded-md hover:bg-blue-950 transition-all duration-200 active:bg-blue-950 border-blue-900 hover:border-blue-400 ${buttonClasses}`}
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {selected ? selected : placeholder}{" "}
@@ -40,7 +47,7 @@ const Dropdown = ({ dropdownId, placeholder, items, classes, onSelect }) => {
         <div className="absolute flex flex-col">
           {selected && (
             <button
-              className="text-xl z-10 text-slate-300 border px-4 py-2 w-64 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 border-blue-900"
+              className={`text-xl text-start z-10 text-slate-300 border px-4 py-2 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 hover:border-blue-400 transition-all duration-200 active:bg-blue-950 border-blue-900 ${buttonClasses}`}
               onClick={() => clearSelection()}
             >
               Clear selection
@@ -50,7 +57,7 @@ const Dropdown = ({ dropdownId, placeholder, items, classes, onSelect }) => {
           {items.map((item, index) => (
             <button
               key={index}
-              className="text-xl z-10 text-slate-300 border px-4 py-2 w-64 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 transition-all duration-200 active:bg-blue-950 border-blue-900 hover:border-blue-400"
+              className={`text-xl text-start z-10 text-slate-300 border px-4 py-2 flex justify-between first:rounded-t-md last:rounded-b-md bg-slate-900 hover:bg-blue-950 transition-all duration-200 active:bg-blue-950 border-blue-900 hover:border-blue-400 ${buttonClasses}`}
               onClick={() => makeSelection(item)}
             >
               {item}
@@ -67,6 +74,7 @@ Dropdown.propTypes = {
   placeholder: PropTypes.string.isRequired,
   items: PropTypes.array.isRequired,
   classes: PropTypes.string,
+  buttonClasses: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
 };
 export default Dropdown;
