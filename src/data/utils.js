@@ -1,15 +1,15 @@
-import axios from "axios";
+// import axios from "axios";
 
-const getData = async () => {
-  try {
-    const response = await axios.get(
-      "http://127.0.0.1:8000/data_entries/Boston/Line Efficiency"
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
+// const getData = async () => {
+//   try {
+//     const response = await axios.get(
+//       "http://127.0.0.1:8000/data_entries/Boston/Line Efficiency"
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 export const getLabels = (data) => {
   const periods = [...new Set(data.map((item) => item.period))];
@@ -184,8 +184,8 @@ export const getDatasetsSite = (data) => {
 };
 
 export const getDatasetsCompare = (data) => {
-  const actualColor = "#e5e5e5";
-  const targetColor = "#99f6e4";
+  const actualColor = "#9333ea";
+  const targetColor = "#facc15";
   const datasets = [];
   const metric = data[0].metric_name;
   const actualsDataset = {
@@ -222,7 +222,3 @@ export const getDatasetsCompare = (data) => {
     datasets: datasets,
   };
 };
-
-const data = await getData();
-const datasets = getDatasetsCompare(data);
-console.log(datasets);
